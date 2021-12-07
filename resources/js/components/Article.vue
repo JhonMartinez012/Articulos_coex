@@ -18,6 +18,7 @@
               <button @click=" update = true; openModal(articlee);" class="btn btn-primary" title="Ver producto">
                 <i class="fas fa-eye"></i> 
               </button>
+              
               <button @click=" update = true; openModal(articlee);" class="btn btn-warning" title="Editar producto">
                 <i class="fas fa-edit"></i> 
               </button>
