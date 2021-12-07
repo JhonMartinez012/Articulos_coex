@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'serial',
+        'title',
+        'description',
+        'img_article'
+    ];
     // Relacion 1 a muchos inversa: con users
     public function user()
     {

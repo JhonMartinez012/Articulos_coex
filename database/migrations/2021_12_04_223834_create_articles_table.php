@@ -14,18 +14,20 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
+
+            $table->engine="InnoDB";
             $table->id();
             $table->string('serial',20);
             $table->string('title',20);
             $table->text('description');
             $table->string('img_article');
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
-                    ->onDelete('set null');
+                    ->onDelete('cascade');
         });
     }
 

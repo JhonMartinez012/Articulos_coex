@@ -15,6 +15,7 @@ class ArticleController extends Controller
     public function index()
     {
         //
+        return Article::get();
     }
 
     /**
@@ -26,6 +27,8 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
+        $article = new Article();
+        $article->create($request->all());
     }
 
     /**
@@ -37,6 +40,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         //
+        return $article;
     }
 
     /**
