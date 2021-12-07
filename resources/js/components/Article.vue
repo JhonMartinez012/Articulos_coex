@@ -1,7 +1,37 @@
 <!-- Seccion 1 : Estructura HTML sección de articulos -->
 <template>
+
   <div>
     <h1 class="text-center">Articulos Registrados</h1>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4" v-for="articlee in articles" :key="articlee.id">
+          <div class="card" style="width: 18rem;">
+            <img src="https://elcomercio.pe/resizer/4LiA3UcZpkTbq0pGF8j9dPiahkw=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/6Y2EDIISGFGVFANEVDCR5LCG34.jpg" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">#id :{{ articlee.id }}  {{ articlee.title }}</h5>
+              <p class="card-text">{{ articlee.description }}</p>
+              <p class="card-text">Ref: {{ articlee.serial }}</p>
+              <p class="card-text">vendedor: {{ articlee.user_id }}</p>
+              
+              <button @click=" update = true; openModal(articlee);" class="btn btn-primary" title="Ver producto">
+                <i class="fas fa-eye"></i> 
+              </button>
+              <button @click=" update = true; openModal(articlee);" class="btn btn-warning" title="Editar producto">
+                <i class="fas fa-edit"></i> 
+              </button>
+              <button @click="eliminar(articlee.id)" class="btn btn-danger" title="Eliminar producto">
+                <i class="fas fa-trash-alt"></i> 
+              </button>
+            </div>
+          </div><br />
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- 
     <table class="table table-striped table-hover">
       <thead class="table-dark">
         <tr>
@@ -40,7 +70,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </div>
 </template>
 <!-- Fin seccion 1 -->
@@ -68,5 +98,6 @@ export default {
 
 <!-- Seccion 3: ESILOS DEL COMPONENTE -->
 <style>
+
 </style>
 <!-- ******** FIN SECCION 3 ********* -->

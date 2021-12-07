@@ -5310,6 +5310,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -28723,57 +28753,93 @@ var render = function () {
   return _c("div", [
     _c("h1", { staticClass: "text-center" }, [_vm._v("Articulos Registrados")]),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-striped table-hover" }, [
-      _vm._m(0),
-      _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
       _c(
-        "tbody",
+        "div",
+        { staticClass: "row" },
         _vm._l(_vm.articles, function (articlee) {
-          return _c("tr", { key: articlee.id }, [
-            _c("th", { attrs: { scope: "row" } }, [
-              _vm._v(_vm._s(articlee.id)),
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(articlee.img_article))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(articlee.title))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(articlee.serial))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(articlee.description))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(articlee.user_id))]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning",
-                  on: {
-                    click: function ($event) {
-                      _vm.update = true
-                      _vm.openModal(articlee)
-                    },
+          return _c("div", { key: articlee.id, staticClass: "col-sm-4" }, [
+            _c(
+              "div",
+              { staticClass: "card", staticStyle: { width: "18rem" } },
+              [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: {
+                    src: "https://elcomercio.pe/resizer/4LiA3UcZpkTbq0pGF8j9dPiahkw=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/6Y2EDIISGFGVFANEVDCR5LCG34.jpg",
+                    alt: "",
                   },
-                },
-                [_vm._v("\n            Editar\n          ")]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  on: {
-                    click: function ($event) {
-                      return _vm.eliminar(articlee.id)
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v(
+                      "#id :" +
+                        _vm._s(articlee.id) +
+                        "  " +
+                        _vm._s(articlee.title)
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(_vm._s(articlee.description)),
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v("Ref: " + _vm._s(articlee.serial)),
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v("vendedor: " + _vm._s(articlee.user_id)),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { title: "Ver producto" },
+                      on: {
+                        click: function ($event) {
+                          _vm.update = true
+                          _vm.openModal(articlee)
+                        },
+                      },
                     },
-                  },
-                },
-                [_vm._v("\n            Eliminar\n          ")]
-              ),
-            ]),
+                    [_c("i", { staticClass: "fas fa-eye" })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-warning",
+                      attrs: { title: "Editar producto" },
+                      on: {
+                        click: function ($event) {
+                          _vm.update = true
+                          _vm.openModal(articlee)
+                        },
+                      },
+                    },
+                    [_c("i", { staticClass: "fas fa-edit" })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { title: "Eliminar producto" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.eliminar(articlee.id)
+                        },
+                      },
+                    },
+                    [_c("i", { staticClass: "fas fa-trash-alt" })]
+                  ),
+                ]),
+              ]
+            ),
+            _c("br"),
           ])
         }),
         0
@@ -28781,34 +28847,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "table-dark" }, [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("# Id")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Imagen")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Titulo")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Serial")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Creador")]),
-        _vm._v(" "),
-        _c(
-          "th",
-          { staticClass: "text-center", attrs: { scope: "col", colspan: "2" } },
-          [_vm._v("Acción")]
-        ),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
