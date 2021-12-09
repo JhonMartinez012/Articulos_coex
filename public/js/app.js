@@ -5341,10 +5341,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       articles: []
+    };
+    return {
+      users: []
     };
   },
   methods: {
@@ -5370,6 +5380,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    eliminar: function eliminar(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios["delete"]("/articles/" + id);
+
+              case 2:
+                res = _context2.sent;
+
+                _this2.list();
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   },
@@ -28754,7 +28789,22 @@ var render = function () {
   return _c("div", [
     _c("h1", { staticClass: "text-center" }, [_vm._v("Articulos Registrados")]),
     _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        attrs: { type: "button" },
+        on: {
+          click: function ($event) {
+            _vm.update = false
+            _vm.openModal()
+          },
+        },
+      },
+      [_vm._v("\n    Nuevo Articulo\n  ")]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "container mt-2" }, [
       _c(
         "div",
         { staticClass: "row" },
@@ -28772,72 +28822,81 @@ var render = function () {
                   },
                 }),
                 _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title" }, [
-                    _vm._v(
-                      "#id :" +
-                        _vm._s(articlee.id) +
-                        "  " +
-                        _vm._s(articlee.title)
+                _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _c("h5", { staticClass: "card-title" }, [
+                      _vm._v(
+                        "#id :" +
+                          _vm._s(articlee.id) +
+                          "  " +
+                          _vm._s(articlee.title)
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v(_vm._s(articlee.description)),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v("Ref: " + _vm._s(articlee.serial)),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v("vendedor: " + _vm._s(articlee.user_id)),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { title: "Ver producto" },
+                        on: {
+                          click: function ($event) {
+                            _vm.update = true
+                            _vm.openModal(articlee)
+                          },
+                        },
+                      },
+                      [_c("i", { staticClass: "fas fa-eye" })]
                     ),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(_vm._s(articlee.description)),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v("Ref: " + _vm._s(articlee.serial)),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v("vendedor: " + _vm._s(articlee.user_id)),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { title: "Ver producto" },
-                      on: {
-                        click: function ($event) {
-                          _vm.update = true
-                          _vm.openModal(articlee)
-                        },
-                      },
-                    },
-                    [_c("i", { staticClass: "fas fa-eye" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-warning",
-                      attrs: { title: "Editar producto" },
-                      on: {
-                        click: function ($event) {
-                          _vm.update = true
-                          _vm.openModal(articlee)
-                        },
-                      },
-                    },
-                    [_c("i", { staticClass: "fas fa-edit" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger",
-                      attrs: { title: "Eliminar producto" },
-                      on: {
-                        click: function ($event) {
-                          return _vm.eliminar(articlee.id)
-                        },
-                      },
-                    },
-                    [_c("i", { staticClass: "fas fa-trash-alt" })]
-                  ),
-                ]),
+                    _vm._v(" "),
+                    articlee.user_id == 1
+                      ? [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning",
+                              attrs: { title: "Editar producto" },
+                              on: {
+                                click: function ($event) {
+                                  _vm.update = true
+                                  _vm.openModal(articlee)
+                                },
+                              },
+                            },
+                            [_c("i", { staticClass: "fas fa-edit" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { title: "Eliminar producto" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.eliminar(articlee.id)
+                                },
+                              },
+                            },
+                            [_c("i", { staticClass: "fas fa-trash-alt" })]
+                          ),
+                        ]
+                      : _vm._e(),
+                  ],
+                  2
+                ),
               ]
             ),
             _c("br"),

@@ -53,6 +53,7 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         //
+        $article->update($request->all());
     }
 
     /**
@@ -63,6 +64,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        //Eliminar un articulo
+        $article->delete();
     }
 }

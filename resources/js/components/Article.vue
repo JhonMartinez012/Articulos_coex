@@ -4,7 +4,12 @@
   <div>
     <h1 class="text-center">Articulos Registrados</h1>
 
-    <div class="container">
+     <!-- Button trigger modal -->
+    <button @click=" update = false; openModal();" type="button" class="btn btn-primary">
+      Nuevo Articulo
+    </button>
+
+    <div class="container mt-2">
       <div class="row">
         <div class="col-sm-4" v-for="articlee in articles" :key="articlee.id">
           <div class="card" style="width: 18rem;">
@@ -19,12 +24,14 @@
                 <i class="fas fa-eye"></i> 
               </button>
               
-              <button @click=" update = true; openModal(articlee);" class="btn btn-warning" title="Editar producto">
-                <i class="fas fa-edit"></i> 
-              </button>
-              <button @click="eliminar(articlee.id)" class="btn btn-danger" title="Eliminar producto">
-                <i class="fas fa-trash-alt"></i> 
-              </button>
+              <template v-if="articlee.user_id==1">
+                <button @click=" update = true; openModal(articlee);" class="btn btn-warning" title="Editar producto">
+                  <i class="fas fa-edit"></i> 
+                </button>
+                <button @click="eliminar(articlee.id)" class="btn btn-danger" title="Eliminar producto">
+                  <i class="fas fa-trash-alt"></i> 
+                </button>
+              </template>
             </div>
           </div><br />
         </div>
@@ -82,17 +89,26 @@ export default {
   data() {
     return {
       articles: [],
+    }; 
+    return{
+      users:[],
     };
+    
   },
   methods: {
     async list() {
       const res = await axios.get("articles");
       this.articles = res.data;
-    },
+    }, 
+    async eliminar(id) {
+      const res = await axios.delete("/articles/" + id);
+      this.list();
+    },   
   },
   created() {
     this.list();
   },
+  
 };
 </script>
 <!-- **** FIN SECCION 2 **** -->
