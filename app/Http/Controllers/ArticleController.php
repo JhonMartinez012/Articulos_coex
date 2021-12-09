@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -14,8 +16,18 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
-        return Article::get();
+        /* SELECT name
+            FROM users
+            JOIN articles ON articles.user_id=users.id where articles.user_id=users.id
+         */
+        //$user_id=DB::table('users')->select('id')->first();
+        //return $user_id;
+        $user_logeado=auth()->user();
+
+        $articles=Article::with('user')->get(); 
+        /* $articles=DB::table('articles')
+        ->join('users','users.id','user_id')->get(); */
+        return ['articulos'=> $articles,'usuario_log' => $user_logeado];
     }
 
     /**

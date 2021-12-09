@@ -18,13 +18,13 @@
               <h5 class="card-title">#id :{{ articlee.id }}  {{ articlee.title }}</h5>
               <p class="card-text">{{ articlee.description }}</p>
               <p class="card-text">Ref: {{ articlee.serial }}</p>
-              <p class="card-text">vendedor: {{ articlee.user_id }}</p>
+              <p class="card-text">vendedor: {{ articlee.user.name }}</p>
               
               <button @click=" update = true; openModal(articlee);" class="btn btn-primary" title="Ver producto">
                 <i class="fas fa-eye"></i> 
               </button>
               
-              <template v-if="articlee.user_id==1">
+              <template v-if="articlee.user.id==usuario_log.id">
                 <button @click=" update = true; openModal(articlee);" class="btn btn-warning" title="Editar producto">
                   <i class="fas fa-edit"></i> 
                 </button>
@@ -89,16 +89,16 @@ export default {
   data() {
     return {
       articles: [],
+      usuario_log:{}
     }; 
-    return{
-      users:[],
-    };
+   
     
   },
   methods: {
     async list() {
       const res = await axios.get("articles");
-      this.articles = res.data;
+      this.articles = res.data.articulos;
+      this.usuario_log = res.data.usuario_log;
     }, 
     async eliminar(id) {
       const res = await axios.delete("/articles/" + id);

@@ -5351,10 +5351,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      articles: []
-    };
-    return {
-      users: []
+      articles: [],
+      usuario_log: {}
     };
   },
   methods: {
@@ -5372,9 +5370,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 res = _context.sent;
-                _this.articles = res.data;
+                _this.articles = res.data.articulos;
+                _this.usuario_log = res.data.usuario_log;
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -28844,7 +28843,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "card-text" }, [
-                      _vm._v("vendedor: " + _vm._s(articlee.user_id)),
+                      _vm._v("vendedor: " + _vm._s(articlee.user.name)),
                     ]),
                     _vm._v(" "),
                     _c(
@@ -28862,7 +28861,7 @@ var render = function () {
                       [_c("i", { staticClass: "fas fa-eye" })]
                     ),
                     _vm._v(" "),
-                    articlee.user_id == 1
+                    articlee.user.id == _vm.usuario_log.id
                       ? [
                           _c(
                             "button",
