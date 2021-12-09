@@ -8,6 +8,82 @@
     <button @click=" update = false; openModal();" type="button" class="btn btn-primary">
       Nuevo Articulo
     </button>
+    <!-- Modal -->
+    <div class="modal" :class="{ show: modal }">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ titleModal }}</h5>
+            <button @click="closeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <label for="titulo del producto">Titulo:</label>
+              <input
+                v-model="article.title"
+                type="text"
+                class="form-control"
+                id="title"
+                placeholder="Titulo del producto"
+                name=""
+              />
+            </div>
+            <div>
+              <label for="Serial">Serial:</label>
+              <input v-model="article.serial"
+                type="text"
+                class="form-control"
+                id="serial"
+                placeholder="Serial del producto"
+                name=""
+              />
+            </div>
+            <div>
+              <label for="descripcion">Descripción:</label>
+              <input v-model="article.description"
+                type="text"
+                class="form-control"
+                id="description"
+                placeholder="Descripcion del producto"
+                name=""
+              />
+            </div>
+            <div>
+              <label for="Image">Imagen:</label>  
+              <input type="file" id="img_article">            
+              
+            </div>
+            <div>
+              <label for="descripcion">id usuario:</label>
+              <input v-model="article.user_id"
+                type="text"
+                class="form-control"
+                id="description"
+                placeholder="Descripcion del producto"
+                name=""
+              />
+            </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button
+              @click="closeModal()"
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button @click="save();" type="button" class="btn btn-success">
+              Guardar Cambios
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin del Modal -->
 
     <div class="container mt-2">
       <div class="row">
@@ -88,6 +164,17 @@
 export default {
   data() {
     return {
+      article:{
+        serial:'',
+        title:'',
+        description:'',
+        img_article:'',
+        user_id:'',
+      },
+      id:0,
+      update:true,
+      modal:0,
+      titleModal:' ',
       articles: [],
       usuario_log:{}
     }; 
@@ -103,18 +190,54 @@ export default {
     async eliminar(id) {
       const res = await axios.delete("/articles/" + id);
       this.list();
-    },   
+    }, 
+    async save() {
+      if(this.update){
+          const res= await axios.put('/articles/'+ this.id, this.article);
+      }else{
+          const res = await axios.post('/articles',this.article);
+      }
+      this.closeModal();
+      this.list();      
+    },
+    openModal(data={}) {
+      this.modal = 1;
+      if (this.update) {
+          this.id = data.id;
+        this.titleModal = "Modificar articulo" ;
+        this.article.serial=data.serial;
+        this.article.title=data.title;
+        this.article.description=data.description;
+        this.article.img_article=data.img_article;
+        this.article.user_id=data.user_id;
+
+      } else {
+        this.titleModal = "Crear articulo";
+        this.id=0;
+        this.article.serial='';
+        this.article.title='';
+        this.article.description='';
+        this.article.img_article='';
+        this.article.user_id='';
+      }
+    },
+    closeModal() {
+      this.modal = 0;
+    },
   },
   created() {
-    this.list();
-  },
-  
+    this.list();  
+  },  
 };
 </script>
 <!-- **** FIN SECCION 2 **** -->
 
 <!-- Seccion 3: ESILOS DEL COMPONENTE -->
 <style>
-
+.show {
+  display: list-item;
+  opacity: 1;
+  background: rgba(44, 38, 75, 0.849);
+}
 </style>
 <!-- ******** FIN SECCION 3 ********* -->
