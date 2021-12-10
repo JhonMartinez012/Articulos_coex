@@ -12,7 +12,8 @@ class Article extends Model
         'serial',
         'title',
         'description',
-        'img_article'
+        'img_article',
+        'user_id'
     ];
     // Relacion 1 a muchos inversa: con users
     public function user()

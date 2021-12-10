@@ -6,6 +6,8 @@ use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;;
+
 
 class ArticleController extends Controller
 {
@@ -27,7 +29,7 @@ class ArticleController extends Controller
         $articles=Article::with('user')->get(); 
         /* $articles=DB::table('articles')
         ->join('users','users.id','user_id')->get(); */
-        return ['articulos'=> $articles,'usuario_log' => $user_logeado];
+        return ['articulos'=> $articles,'user_logeado' => $user_logeado];
     }
 
     /**
@@ -39,8 +41,15 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
+        //Storage::put('photos', $request->file('file'));
+
+        if ($request->file('img_article')) {
+           // $article['img_article'] = $request->file('img_article')->store('img_articles');
+            //$article['img_article'] = Storage::put('/archivo.jpg',$request->img_article);  
+            $article = Storage::put('photos',$request->file('img_article'));  
+        }        
         $article = new Article();
-        $article->create($request->all());
+        $article->create($request->all());        
     }
 
     /**
