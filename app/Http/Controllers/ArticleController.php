@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Storage;;
 
 
@@ -24,12 +25,12 @@ class ArticleController extends Controller
          */
         //$user_id=DB::table('users')->select('id')->first();
         //return $user_id;
-        $user_logeado=auth()->user();
+        $user_logeado = auth()->user();
 
-        $articles=Article::with('user')->get(); 
+        $articles = Article::with('user')->get();
         /* $articles=DB::table('articles')
         ->join('users','users.id','user_id')->get(); */
-        return ['articulos'=> $articles,'user_logeado' => $user_logeado];
+        return ['articulos' => $articles, 'user_logeado' => $user_logeado];
     }
 
     /**
@@ -42,14 +43,27 @@ class ArticleController extends Controller
     {
         //
         //Storage::put('photos', $request->file('file'));
+        //return Storage::put('public\photos', $request->file('img_article'));  
 
+        //$article = Article::create($request->all());
+
+        if ($request->hasFile('img_article')) {
+            $url_img = Storage::disk('public')->put('photos', $request->file('img_article'));
+            $article = Article::create(['serial'=>$request->input('serial'),
+                                        'title'=>$request->input('title'),
+                                        'description'=>$request->input('description'),
+                                        'img_article' => $url_img,
+                                        'user_id' => $request->input('user_id')
+                                        ]);
+        }
+        /* 
         if ($request->file('img_article')) {
            // $article['img_article'] = $request->file('img_article')->store('img_articles');
             //$article['img_article'] = Storage::put('/archivo.jpg',$request->img_article);  
-            $article = Storage::put('photos',$request->file('img_article'));  
+            $article = Storage::put('public/photos',$request->file('img_article'));  
         }        
         $article = new Article();
-        $article->create($request->all());        
+        $article->create($request->all()); */
     }
 
     /**
@@ -74,7 +88,17 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         //
-        $article->update($request->all());
+        if ($request->hasFile('img_article')) {
+            $url_img = Storage::disk('public')->put('photos', $request->file('img_article'));
+            $article->update(['serial'=>$request->input('serial'),
+                                'title'=>$request->input('title'),
+                                'description'=>$request->input('description'),
+                                'img_article' => $url_img,
+                                'user_id' => $request->input('user_id')
+                                ]);
+            $article->save();
+        }
+        //$article->update($request->all());
     }
 
     /**

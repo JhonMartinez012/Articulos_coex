@@ -67,10 +67,21 @@
               </div>
               <div>
                 <label for="Image">Imagen:</label>
-                <input type="file" @change="obtenerImagen" class="form-control-file" accept="image/*"/>
+                <input
+                  
+                  type="file"
+                  @change="obtenerImagen"
+                  class="form-control-file"
+                  accept="image/*"
+                />
               </div>
               <figure>
-                <img with="200" height="200" :src="imagen" alt="img del producto">
+                <img
+                  with="200"
+                  height="200"
+                  :src="imagen"
+                  alt="img del producto"
+                />
               </figure>
               <div>
                 <label for="descripcion">id usuario:</label>
@@ -108,7 +119,8 @@
         <div class="col-sm-4" v-for="articlee in articles" :key="articlee.id">
           <div class="card" style="width: 18rem">
             <img
-              src="https://elcomercio.pe/resizer/4LiA3UcZpkTbq0pGF8j9dPiahkw=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/6Y2EDIISGFGVFANEVDCR5LCG34.jpg"
+              :src="'storage/' + articlee.img_article"
+              width="200px"
               class="card-img-top"
               alt=""
             />
@@ -119,6 +131,7 @@
               <p class="card-text">{{ articlee.description }}</p>
               <p class="card-text">Ref: {{ articlee.serial }}</p>
               <p class="card-text">vendedor: {{ articlee.user.name }}</p>
+              <p class="card-text">ruta: {{ articlee.img_article }}</p>
 
               <button
                 @click="
@@ -156,47 +169,6 @@
         </div>
       </div>
     </div>
-
-    <!-- 
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col"># Id</th>
-          <th scope="col">Imagen</th>
-          <th scope="col">Titulo</th>
-          <th scope="col">Serial</th>
-          <th scope="col">Descripción</th>
-          <th scope="col">Creador</th>
-          <th scope="col" colspan="2" class="text-center">Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="articlee in articles" :key="articlee.id">
-          <th scope="row">{{ articlee.id }}</th>
-          <td>{{ articlee.img_article }}</td>
-          <td>{{ articlee.title }}</td>
-          <td>{{ articlee.serial }}</td>
-          <td>{{ articlee.description }}</td>
-          <td>{{ articlee.user_id }}</td>
-          <td>
-            <button
-              @click="
-                update = true;
-                openModal(articlee);
-              "
-              class="btn btn-warning"
-            >
-              Editar
-            </button>
-          </td>
-          <td>
-            <button @click="eliminar(articlee.id)" class="btn btn-danger">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
   </div>
 </template>
 <!-- Fin seccion 1 -->
@@ -206,7 +178,7 @@
 export default {
   data() {
     return {
-      imagenMini:'',
+      imagenMini: "",
       article: {
         serial: "",
         title: "",
@@ -223,17 +195,17 @@ export default {
     };
   },
   methods: {
-    obtenerImagen(e){
-      let file= e.target.files[0];      
+    obtenerImagen(e) {
+      let file = e.target.files[0];
       this.article.img_article = file;
       this.cargarImagen(file);
     },
-    cargarImagen(file){
-      let reader=new FileReader();
-      reader.onload=(e)=>{
-        this.imagenMini=e.target.result;
-      }
-      reader.readAsDataURL(file);       
+    cargarImagen(file) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagenMini = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
 
     async list() {
@@ -248,27 +220,28 @@ export default {
     async save() {
       if (this.update) {
         //const res = await axios.put("/articles/" + this.id, this.article);
-        let formData = {
-          serial: this.article.serial,
-          title: this.article.title,
-          description:this.article.description,
-          img_article:this.article.img_article,
-          user_id:this.article.user_id
-        }
-        axios.put("/articles/" + this.id, formData);
+        let formData = new FormData();
+        formData.append("serial", this.article.serial);
+        formData.append("title", this.article.title);
+        formData.append("description", this.article.description);
+        formData.append("img_article", this.article.img_article);
+        formData.append("user_id", this.article.user_id);
 
+        axios.put("/articles/"+ this.id, formData).then((response) => {
+          console.log(response.data);
+        }); 
+        //axios.put("/articles/" + this.id, formData);
       } else {
         let formData = new FormData();
-        formData.append('serial',this.article.serial);
-        formData.append('title',this.article.title);
-        formData.append('description',this.article.description);
-        formData.append('img_article',this.article.img_article);
-        formData.append('user_id',this.article.user_id);
-        
-        axios.post("/articles", formData)
-              .then(response => {
-                console.log(response.data);
-              });
+        formData.append("serial", this.article.serial);
+        formData.append("title", this.article.title);
+        formData.append("description", this.article.description);
+        formData.append("img_article", this.article.img_article);
+        formData.append("user_id", this.article.user_id);
+
+        axios.post("/articles", formData).then((response) => {
+          console.log(response.data);
+        });
       }
       this.closeModal();
       this.list();
@@ -296,15 +269,15 @@ export default {
     closeModal() {
       this.modal = 0;
     },
-  },  
+  },
   created() {
     this.list();
   },
-  computed :{
-      imagen(){
-        return this.imagenMini;
-      }
-  }
+  computed: {
+    imagen() {
+      return this.imagenMini;
+    },
+  },
 };
 </script>
 <!-- **** FIN SECCION 2 **** -->

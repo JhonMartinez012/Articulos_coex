@@ -5438,38 +5438,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      imagenMini: '',
+      imagenMini: "",
       article: {
         serial: "",
         title: "",
@@ -5564,26 +5536,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 if (_this4.update) {
                   //const res = await axios.put("/articles/" + this.id, this.article);
-                  formData = {
-                    serial: _this4.article.serial,
-                    title: _this4.article.title,
-                    description: _this4.article.description,
-                    img_article: _this4.article.img_article,
-                    user_id: _this4.article.user_id
-                  };
-                  axios.put("/articles/" + _this4.id, formData);
+                  formData = new FormData();
+                  formData.append("serial", _this4.article.serial);
+                  formData.append("title", _this4.article.title);
+                  formData.append("description", _this4.article.description);
+                  formData.append("img_article", _this4.article.img_article);
+                  formData.append("user_id", _this4.article.user_id);
+                  axios.put("/articles/" + _this4.id, formData).then(function (response) {
+                    console.log(response.data);
+                  }); //axios.put("/articles/" + this.id, formData);
                 } else {
                   _formData = new FormData();
 
-                  _formData.append('serial', _this4.article.serial);
+                  _formData.append("serial", _this4.article.serial);
 
-                  _formData.append('title', _this4.article.title);
+                  _formData.append("title", _this4.article.title);
 
-                  _formData.append('description', _this4.article.description);
+                  _formData.append("description", _this4.article.description);
 
-                  _formData.append('img_article', _this4.article.img_article);
+                  _formData.append("img_article", _this4.article.img_article);
 
-                  _formData.append('user_id', _this4.article.user_id);
+                  _formData.append("user_id", _this4.article.user_id);
 
                   axios.post("/articles", _formData).then(function (response) {
                     console.log(response.data);
@@ -29688,7 +29661,8 @@ var render = function () {
                 _c("img", {
                   staticClass: "card-img-top",
                   attrs: {
-                    src: "https://elcomercio.pe/resizer/4LiA3UcZpkTbq0pGF8j9dPiahkw=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/6Y2EDIISGFGVFANEVDCR5LCG34.jpg",
+                    src: "storage/" + articlee.img_article,
+                    width: "200px",
                     alt: "",
                   },
                 }),
@@ -29717,6 +29691,10 @@ var render = function () {
                     _vm._v(" "),
                     _c("p", { staticClass: "card-text" }, [
                       _vm._v("vendedor: " + _vm._s(articlee.user.name)),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v("ruta: " + _vm._s(articlee.img_article)),
                     ]),
                     _vm._v(" "),
                     _c(
