@@ -5438,6 +5438,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5446,7 +5447,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         serial: "",
         title: "",
         description: "",
-        img_article: "",
+        img_article: null,
         user_id: ""
       },
       id: 0,
@@ -5542,7 +5543,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   formData.append("description", _this4.article.description);
                   formData.append("img_article", _this4.article.img_article);
                   formData.append("user_id", _this4.article.user_id);
-                  axios.put("/articles/" + _this4.id, formData).then(function (response) {
+                  axios.post("/articles-edit/" + _this4.id, formData).then(function (response) {
                     console.log(response.data);
                   }); //axios.put("/articles/" + this.id, formData);
                 } else {
@@ -29600,6 +29601,7 @@ var render = function () {
                     id: "user_id",
                     placeholder: "Descripcion del producto",
                     name: "",
+                    disabled: "",
                   },
                   domProps: { value: _vm.article.user_id },
                   on: {

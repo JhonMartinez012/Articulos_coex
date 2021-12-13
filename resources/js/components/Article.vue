@@ -67,8 +67,8 @@
               </div>
               <div>
                 <label for="Image">Imagen:</label>
-                <input
-                  
+                
+                <input                  
                   type="file"
                   @change="obtenerImagen"
                   class="form-control-file"
@@ -85,13 +85,14 @@
               </figure>
               <div>
                 <label for="descripcion">id usuario:</label>
-                <input
+                <input 
                   v-model="article.user_id"
                   type="text"
                   class="form-control"
                   id="user_id"
                   placeholder="Descripcion del producto"
                   name=""
+                  disabled
                 />
               </div>
             </div>
@@ -183,7 +184,7 @@ export default {
         serial: "",
         title: "",
         description: "",
-        img_article: "",
+        img_article: null,
         user_id: "",
       },
       id: 0,
@@ -220,16 +221,16 @@ export default {
     async save() {
       if (this.update) {
         //const res = await axios.put("/articles/" + this.id, this.article);
-        let formData = new FormData();
-        formData.append("serial", this.article.serial);
-        formData.append("title", this.article.title);
-        formData.append("description", this.article.description);
-        formData.append("img_article", this.article.img_article);
-        formData.append("user_id", this.article.user_id);
+          let formData = new FormData();
+          formData.append("serial", this.article.serial);
+          formData.append("title", this.article.title);
+          formData.append("description", this.article.description);
+          formData.append("img_article", this.article.img_article);
+          formData.append("user_id", this.article.user_id);
 
-        axios.put("/articles/"+ this.id, formData).then((response) => {
-          console.log(response.data);
-        }); 
+          axios.post("/articles-edit/"+ this.id, formData).then((response) => {
+            console.log(response.data);
+          }); 
         //axios.put("/articles/" + this.id, formData);
       } else {
         let formData = new FormData();

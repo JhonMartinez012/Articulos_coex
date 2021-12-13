@@ -49,12 +49,13 @@ class ArticleController extends Controller
 
         if ($request->hasFile('img_article')) {
             $url_img = Storage::disk('public')->put('photos', $request->file('img_article'));
-            $article = Article::create(['serial'=>$request->input('serial'),
-                                        'title'=>$request->input('title'),
-                                        'description'=>$request->input('description'),
-                                        'img_article' => $url_img,
-                                        'user_id' => $request->input('user_id')
-                                        ]);
+            $article = Article::create([
+                'serial' => $request->input('serial'),
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'img_article' => $url_img,
+                'user_id' => $request->input('user_id')
+            ]);
         }
         /* 
         if ($request->file('img_article')) {
@@ -88,17 +89,22 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         //
+        
         if ($request->hasFile('img_article')) {
+            
             $url_img = Storage::disk('public')->put('photos', $request->file('img_article'));
-            $article->update(['serial'=>$request->input('serial'),
-                                'title'=>$request->input('title'),
-                                'description'=>$request->input('description'),
-                                'img_article' => $url_img,
-                                'user_id' => $request->input('user_id')
-                                ]);
-            $article->save();
+            $article->update(['img_article' => $url_img]);
+            
         }
         //$article->update($request->all());
+        $article->update([
+            'serial' => $request->input('serial'),
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            
+            'user_id' => $request->input('user_id')
+        ]);
+        return "guardado";
     }
 
     /**

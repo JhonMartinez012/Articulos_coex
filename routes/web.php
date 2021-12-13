@@ -26,4 +26,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::apiResource('/articles', App\Http\Controllers\ArticleController::class);
+Route::post('/articles-edit/{article}', [App\Http\Controllers\ArticleController::class, 'update'])->name('articles.update');
 
