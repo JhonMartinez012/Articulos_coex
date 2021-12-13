@@ -5439,6 +5439,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5452,6 +5454,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       id: 0,
       update: true,
+      show: true,
       modal: 0,
       titleModal: " ",
       articles: [],
@@ -5459,6 +5462,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    resetForm: function resetForm() {
+      this.imagenMini = "";
+    },
     obtenerImagen: function obtenerImagen(e) {
       var file = e.target.files[0];
       this.article.img_article = file;
@@ -5564,7 +5570,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-                _this4.closeModal();
+                _this4.closeModal(); //location.reload();
+
 
                 _this4.list();
 
@@ -5576,6 +5583,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
+
+    /* async ver(data = {}) {
+      this.modal = 1;
+      if (this.show) {
+        this.id = data.id;
+        this.titleModal = "Articulo :" + data.title;
+        this.article.serial = data.serial;
+        this.article.title = data.title;
+        this.article.description = data.description;
+        this.article.img_article = data.img_article;
+        this.article.user_id = data.user_id;
+      }
+    }, */
     openModal: function openModal() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.modal = 1;
@@ -5595,7 +5615,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.article.title = "";
         this.article.description = "";
         this.article.img_article = "";
-        this.article.user_id = "";
+        this.article.user_id = this.user_logeado.id;
       }
     },
     closeModal: function closeModal() {
@@ -29581,7 +29601,7 @@ var render = function () {
                 }),
               ]),
               _vm._v(" "),
-              _c("div", [
+              _c("div", { attrs: { hidden: "" } }, [
                 _c("label", { attrs: { for: "descripcion" } }, [
                   _vm._v("id usuario:"),
                 ]),
@@ -29591,8 +29611,8 @@ var render = function () {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.article.user_id,
-                      expression: "article.user_id",
+                      value: _vm.user_logeado.id,
+                      expression: "user_logeado.id",
                     },
                   ],
                   staticClass: "form-control",
@@ -29601,15 +29621,14 @@ var render = function () {
                     id: "user_id",
                     placeholder: "Descripcion del producto",
                     name: "",
-                    disabled: "",
                   },
-                  domProps: { value: _vm.article.user_id },
+                  domProps: { value: _vm.user_logeado.id },
                   on: {
                     input: function ($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.article, "user_id", $event.target.value)
+                      _vm.$set(_vm.user_logeado, "id", $event.target.value)
                     },
                   },
                 }),
@@ -29665,6 +29684,7 @@ var render = function () {
                   attrs: {
                     src: "storage/" + articlee.img_article,
                     width: "200px",
+                    height: "150px",
                     alt: "",
                   },
                 }),

@@ -65,10 +65,11 @@
                   name=""
                 />
               </div>
+
               <div>
                 <label for="Image">Imagen:</label>
-                
-                <input                  
+
+                <input
                   type="file"
                   @change="obtenerImagen"
                   class="form-control-file"
@@ -83,16 +84,16 @@
                   alt="img del producto"
                 />
               </figure>
-              <div>
+
+              <div hidden>
                 <label for="descripcion">id usuario:</label>
-                <input 
-                  v-model="article.user_id"
+                <input
+                  v-model="user_logeado.id"
                   type="text"
                   class="form-control"
                   id="user_id"
                   placeholder="Descripcion del producto"
                   name=""
-                  disabled
                 />
               </div>
             </div>
@@ -122,6 +123,7 @@
             <img
               :src="'storage/' + articlee.img_article"
               width="200px"
+              height="150px"
               class="card-img-top"
               alt=""
             />
@@ -189,6 +191,7 @@ export default {
       },
       id: 0,
       update: true,
+      show: true,
       modal: 0,
       titleModal: " ",
       articles: [],
@@ -196,6 +199,9 @@ export default {
     };
   },
   methods: {
+    resetForm() {
+      this.imagenMini = "";
+    },
     obtenerImagen(e) {
       let file = e.target.files[0];
       this.article.img_article = file;
@@ -221,16 +227,16 @@ export default {
     async save() {
       if (this.update) {
         //const res = await axios.put("/articles/" + this.id, this.article);
-          let formData = new FormData();
-          formData.append("serial", this.article.serial);
-          formData.append("title", this.article.title);
-          formData.append("description", this.article.description);
-          formData.append("img_article", this.article.img_article);
-          formData.append("user_id", this.article.user_id);
+        let formData = new FormData();
+        formData.append("serial", this.article.serial);
+        formData.append("title", this.article.title);
+        formData.append("description", this.article.description);
+        formData.append("img_article", this.article.img_article);
+        formData.append("user_id", this.article.user_id);
 
-          axios.post("/articles-edit/"+ this.id, formData).then((response) => {
-            console.log(response.data);
-          }); 
+        axios.post("/articles-edit/" + this.id, formData).then((response) => {
+          console.log(response.data);
+        });
         //axios.put("/articles/" + this.id, formData);
       } else {
         let formData = new FormData();
@@ -245,8 +251,21 @@ export default {
         });
       }
       this.closeModal();
+      //location.reload();
       this.list();
     },
+    /* async ver(data = {}) {
+      this.modal = 1;
+      if (this.show) {
+        this.id = data.id;
+        this.titleModal = "Articulo :" + data.title;
+        this.article.serial = data.serial;
+        this.article.title = data.title;
+        this.article.description = data.description;
+        this.article.img_article = data.img_article;
+        this.article.user_id = data.user_id;
+      }
+    }, */
     openModal(data = {}) {
       this.modal = 1;
       if (this.update) {
@@ -264,7 +283,7 @@ export default {
         this.article.title = "";
         this.article.description = "";
         this.article.img_article = "";
-        this.article.user_id = "";
+        this.article.user_id = this.user_logeado.id;
       }
     },
     closeModal() {
