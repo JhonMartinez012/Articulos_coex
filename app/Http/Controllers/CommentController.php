@@ -14,7 +14,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        //obtiene los datos guardados en la tabla de la base de datos
+        return Comment::get();
     }
 
     /**
@@ -25,7 +26,12 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //permite guardar los registros en la tabla de la base de datos
+
+        //Se genera una instancia del model
+        $comment = new Comment;
+        $comment->create($request->all());
+
     }
 
     /**
@@ -36,7 +42,8 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        //obtiene los datos guardados en la tabla de la base de datos
+        return $comment;
     }
 
     /**

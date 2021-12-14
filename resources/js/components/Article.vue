@@ -84,12 +84,14 @@
                             <p class="card-text">vendedor: {{ articlee.user.name }}</p>
                             <p class="card-text">ruta: {{ articlee.img_article }}</p>
 
-                            <button @click="
+                            <a href="/article" class="btn btn-primary"> <i class="fas fa-eye"></i> </a>
+
+                            <!-- <button @click="
                   update = true;
                   openModal(articlee);
                 " class="btn btn-primary" title="Ver producto">
                                 <i class="fas fa-eye"></i>
-                            </button>
+                            </button> -->
 
                             <template v-if="articlee.user.id == user_logeado.id">
                                 <button @click="
@@ -225,6 +227,7 @@
             closeModal() {
                 this.modal = 0;
             },
+
         },
         created() {
             this.list();

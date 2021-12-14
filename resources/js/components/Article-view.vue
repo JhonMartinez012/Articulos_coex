@@ -1,14 +1,7 @@
 <template>
-    <div :style="imagen" class="container-fluid">
+<div>
+    <div>
+        <h1>Mensaje de prueba</h1>
     </div>
+</div>
 </template>
-<!--Logica de la vista -->
-<script>
-export default {
-    data(){
-        return{
-
-        }
-    }
-}
-</script>
