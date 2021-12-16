@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@mdi/font": "^6.5.95",
         "resolve-url": "^0.2.1",
         "urix": "^0.1.0",
         "vue-router": "^3.5.3"
